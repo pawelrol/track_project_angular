@@ -1,0 +1,59 @@
+@import "variables";
+
+.ht-route-info.row {
+    height:40px;
+    background:$ht-gray;
+    color: $ht-primary;
+    font-size: 14px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    > div {
+        display: grid;
+    }
+
+    .icon-buttom {
+        font-size: 32px;
+    }
+    .fixed-bottom{
+        border: 1px solid $ht-gray;
+    }
+    .dx-progressbar-range-container{
+        width: 100px;
+        margin-top: 6px;
+    }
+    .ht-col-item{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center !important;
+        span{
+            padding: 0 5px;
+        }
+    }
+}
+
+.ht-route-info{
+    dx-progress-bar{
+        .dx-progressbar-container {
+            border: 1px solid $ht-primary;
+            border-left: none;
+        }
+        .dx-progressbar-status{
+            height: 9px;
+        }
+    }
+}
+
+.ht-green .dx-progressbar-range{
+    background-color: $ht-green;
+}
+.ht-orange .dx-progressbar-range{
+    background-color: $ht-orange;
+}
+.ht-red .dx-progressbar-range{
+    background-color: $ht-red;
+}
+
+.dx-progressbar-range{
+    border-color: $ht-primary;
+}

@@ -1,0 +1,66 @@
+<dx-data-grid id="route-or-package-grid" #routeGrid
+        id="routeGrid"
+        class="ht-grid-form ht-route-or-package-grid"
+        [dataSource]="DataSource"
+        [height]="_gridHeight"
+        [remoteOperations]="true"
+        showBorders="true"
+        [activeStateEnabled]="true"
+        [showRowLines]="true"
+        [allowColumnReordering]="true"
+        [allowColumnResizing]="true"
+        [columnMinWidth]="30"
+        (onContentReady)="onContentReady($event)"
+        (onSelectionChanged)='onSelectionChanged($event)'
+        (onRowPrepared)="onRowPrepared($event)"
+        (onToolbarPreparing)="onToolbarPreparing($event)"
+
+        [htDraggableRow]="packageTab ? 'package' : 'route'"
+        [htDroppableRow]="packageTab ? 'package' : 'route'"
+        [htDroppableGrid]="packageTab ? 'packages' : 'routes'"
+        [FlowManager]="DndFlowManager">
+
+    <dxi-column *ngIf="packageTab" dataField="packageCode" caption="{{'planningPage.packageGrid.packageCode' | translate}}"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="transportOrderNumber" caption="{{'planningPage.packageGrid.transportOrderNumber' | translate}}"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="contractorCode" caption="{{'planningPage.packageGrid.contractorCode' | translate}}"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="orderedAddress" caption="{{'planningPage.packageGrid.orderedAddress' | translate}}"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="packageStatus" caption="{{'planningPage.packageGrid.packageStatus' | translate}}" [visible]="false"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="contactName" caption="{{'planningPage.packageGrid.contactName' | translate}}" [visible]="false"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="contactPhoneNumber" caption="{{'planningPage.packageGrid.contactPhoneNumber' | translate}}" [visible]="false"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="contactEmailAddress" caption="{{'planningPage.packageGrid.contactEmailAddress' | translate}}" [visible]="false"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="warehouseCode" caption="{{'planningPage.packageGrid.warehouseCode' | translate}}" [visible]="false"></dxi-column>
+    <dxi-column *ngIf="packageTab" dataField="waybillNumber" caption="{{'planningPage.packageGrid.waybillNumber' | translate}}" [visible]="false"></dxi-column>
+
+    <dxi-column *ngIf="!packageTab" dataField="routeNumber" caption="{{'planningPage.routeGrid.routeNumber' | translate}}"></dxi-column>
+    <dxi-column *ngIf="!packageTab" dataField="driverName" caption="{{'planningPage.routeGrid.driverName' | translate}}"></dxi-column>
+    <dxi-column *ngIf="!packageTab" dataField="plannedStartDate" caption="{{'planningPage.routeGrid.plannedStartDateStr' | translate}}"
+            cellTemplate="plannedStartDateTemplate"></dxi-column>
+    <dxi-column *ngIf="!packageTab" dataField="estimatedTotalLengthStr" caption="{{'planningPage.routeGrid.estimatedTotalLengthStr' | translate}}"></dxi-column>
+    <dxi-column *ngIf="!packageTab" dataField="truckPercentOccupancy" caption="{{'planningPage.routeGrid.truckPercentOccupancy' | translate}}"
+            cellTemplate="truckPercentOccupancyTemplate" dataType="number" format="percent" alignment="right" [allowGrouping]="false"></dxi-column>
+    <dxi-column *ngIf="!packageTab" dataField="truckPercentOccupancy2" caption="%" dataType="percent"
+        alignment="right" [allowGrouping]="false" format="percent" cssClass="bullet"></dxi-column>
+    <dxi-column *ngIf="!packageTab" dataField="id" sortOrder="desc" [visible]="false"></dxi-column>
+
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-group-panel [visible]="packageTab ? true: false"></dxo-group-panel>
+    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <dxo-load-panel [enabled]="true"></dxo-load-panel> <!--Tutaj dodać title-->
+    <dxo-selection [deferred]="false" mode="single" [allowSelectAll]="false"></dxo-selection>
+    <dxo-state-storing [enabled]="true" type="custom"  [customSave]="saveState"></dxo-state-storing>
+
+    <!--<dxo-filter-row [visible]="true" [applyFilter]="true"></dxo-filter-row>-->
+    <!--<dxo-header-filter [visible]="true"></dxo-header-filter>-->
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+    <div *dxTemplate="let d of 'truckPercentOccupancyTemplate'">
+        <dx-progress-bar [min]="0" [max]="100" [class]="progressBar_Class(d)" [statusFormat]="progressBar_StatusFormat" [value]="d.value"></dx-progress-bar>
+    </div>
+    <div *dxTemplate="let dateVal of 'plannedStartDateTemplate'">
+        <ht-date-cell [DateValue]="dateVal.value"></ht-date-cell>
+    </div>
+    <div *dxTemplate="let data of 'distributionCenter'">
+        <ht-distribution-center-picker (changeValue)="onDCChangeValue($event)"></ht-distribution-center-picker>
+    </div>
+</dx-data-grid>

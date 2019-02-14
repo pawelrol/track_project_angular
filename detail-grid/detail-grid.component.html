@@ -1,0 +1,44 @@
+<dx-data-grid #detailsGrid id="detailsGrid"
+        class="ht-grid-form"
+        [dataSource]="DataSource"
+        [height]="_gridHeight"
+        [remoteOperations]="true"
+        showBorders="true"
+        [activeStateEnabled]="true"
+        [showRowLines]="true"
+        [allowColumnReordering]="true"
+        [allowColumnResizing]="true"
+        [masterDetail]="{ enabled: true, template: 'detail' }"
+        [columnMinWidth]="30"
+        (onContentReady)="onContentReady($event)"
+        (onRowPrepared)="onRowPrepared($event)"
+        htDroppableRow='point' htDroppableGrid='route' htDraggableRow='point' [FlowManager]="DndFlowManager"
+        noDataText="{{'sharedGrid.noDataDetail' | translate}}">
+
+        <dxi-column dataField="ordinalNumber" width="70" [sortIndex]="0" sortOrder="asc" caption="{{'planningPage.routepointGrid.ordinalNumber' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="deliveryAddress" caption="{{'planningPage.routepointGrid.deliveryAddress' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="plannedDeliveryDate" caption="{{'planningPage.routepointGrid.plannedDeliveryDateStr' | translate}}" dataType="datetime" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="distanceStr" caption="{{'planningPage.routepointGrid.distanceStr' | translate}}" [allowSorting]="false"></dxi-column>
+
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-load-panel [enabled]="true"></dxo-load-panel>
+        <dxo-selection [deferred]="false" mode="single" [allowSelectAll]="false"></dxo-selection>
+        <dxo-state-storing [enabled]="true" type="custom"  [customSave]="saveState"></dxo-state-storing>
+
+
+        <!--<dxo-header-filter [visible]="true"></dxo-header-filter>-->
+        <dxo-search-panel [visible]="false"></dxo-search-panel>
+
+        <div *dxTemplate="let routePointPackage of 'detail'">
+            <dx-data-grid id="details_point_{{routePointPackage.data.id}}"
+                [dataSource]="DetailsDataSourceFactory(routePointPackage.data.id)"
+                [showBorders]="true"
+                [columnAutoWidth]="true"
+                (onRowPrepared)="onDetailsRowPrepared($event)">
+                <dxi-column dataField="packageCode" caption="{{'planningPage.routepointGrid.packageCode' | translate}}"></dxi-column>
+            </dx-data-grid>
+        </div>
+        <div *dxTemplate="let dateVal of 'plannedDeliveryDateTemplate'">
+            <ht-date-cell [DateValue]="dateVal.value"></ht-date-cell>
+        </div>
+</dx-data-grid>

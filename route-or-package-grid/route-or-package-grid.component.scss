@@ -1,0 +1,56 @@
+@import "variables";
+
+
+.ht-route-or-package-grid {
+    /* ProgressBar */
+    .ht-green .dx-trackbar-range{
+        border: 1px solid $ht-green;
+        background-color: $ht-green;
+    }
+
+    .ht-orange .dx-trackbar-range{
+        border: 1px solid $ht-orange;
+        background-color: $ht-orange;
+    }
+
+    .ht-red .dx-trackbar-range{
+        border: 1px solid $ht-red;
+        background-color: $ht-red;
+    }
+}
+
+    /*dropdown w nagÅ‚woku grida*/
+    .dx-selectbox {
+        background-color: transparent !important;
+        border: none;
+   }
+
+   /*dropdown w nagÅ‚woku grida*/
+   .dx-selectbox .dx-texteditor-input {
+       border: none;
+       font-family: Roboto;
+       font-size: 14px;
+       text-transform: uppercase;
+       color: #313C56;
+       color: rgb(49, 60, 86);
+   }
+
+  .dx-selectbox .dx-dropdowneditor-icon {
+       color: #313C56;
+       color: rgb(49, 60, 86);
+       border: none;
+       background: #E1DFE1;
+       background: rgba(225, 223, 225, 1);
+       padding-bottom:20px;
+   }
+
+   .dx-selectbox .dx-dropdowneditor-icon:before{
+        margin-top : -15px;
+   }
+
+   /*pozycje dropdown*/
+   .dx-selectbox .dx-item-content .dx-list-item-content {
+       font-family: Roboto;
+       font-size: 14px;
+       text-transform: uppercase;
+   }

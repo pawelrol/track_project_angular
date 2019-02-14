@@ -1,0 +1,50 @@
+<div class="row ht-route-info" id="route-info">
+    <div class="col-2">
+        <div class="row align-items-center">
+            <div class="col-12 ht-col-item">
+                <span class="icon icon-buttom icon-driver"></span>
+                <span>{{selectedRouteRow ? selectedRouteRow.driverName : ""}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row align-items-center">
+            <div class="col-12 ht-col-item">
+                <span class="icon icon-buttom icon-car"></span>
+                <span>{{selectedRouteRow ? selectedRouteRow.truckTypeName : ""}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row align-items-center">
+            <div class="col-12 ht-col-item">
+                <span class="icon icon-buttom icon-calendar"></span>
+                <span>{{selectedRouteRow ? selectedRouteRow.plannedStartDateStr : ""}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row align-items-center">
+            <div class="col-12 ht-col-item">
+                <span>{{'planningPage.routeinfo.time' | translate}}</span>
+                <span id="estimatedTotalTimeStr">{{selectedRouteRow ? selectedRouteRow.estimatedTotalTimeStr : ""}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row align-items-center">
+            <div class="col-12 ht-col-item">
+                <span>{{'planningPage.routeinfo.distance' | translate}}</span>
+                <span>{{selectedRouteRow ? selectedRouteRow.estimatedTotalLengthStr : ""}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row align-items-center">
+            <div class="col-12 ht-col-item">
+                <span>{{'planningPage.routeinfo.occupancy' | translate}}</span>
+                <span><dx-progress-bar [min]="0" [max]="100" [class]="progressBar_Class()" [statusFormat]="progressBar_StatusFormat" [value]="selectedRouteRow ? selectedRouteRow.truckPercentOccupancy : 0"></dx-progress-bar></span>
+            </div>
+        </div>
+    </div>
+</div>
